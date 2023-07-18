@@ -9,7 +9,7 @@ Tech used:
 2. CSS
 3. Javascript
 
-STEPS TO USE IT AS A EXTENSION-
+STEPS TO USE IT AS AN EXTENSION-
 1. download and save the folder on your local system. 
 2. open chrome and go to the manage extension option.
 3. turn on the developer mode
