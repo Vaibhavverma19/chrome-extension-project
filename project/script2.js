@@ -15,13 +15,13 @@ if(dataFromLocalStorage)
     //renderleads()
     render(myLead,title)
 }
-savebutton.addEventListener("click",function(){
-    let str=inputEl.value
-    myLead.push(str)
-    localStorage.setItem("myLeads",JSON.stringify(myLead));
-    render(myLead)
-    inputEl.value=""
-})
+// savebutton.addEventListener("click",function(){
+//     let str=inputEl.value
+//     myLead.push(str)
+//     localStorage.setItem("myLeads",JSON.stringify(myLead));
+//     render(myLead)
+//     inputEl.value=""
+// })
 savetab.addEventListener("click",function(){
     chrome.tabs.query({active:true,currentWindow:true},function(tabs){
         myLead.push(tabs[0].url)
@@ -49,7 +49,8 @@ let deletebutton=document.getElementById("delete-btn");
 deletebutton.addEventListener("dblclick",function(){
     localStorage.clear();
     myLead=[]
-    render(myLead)
+    title=[]
+    render(myLead,title)
 
 })
 let checkbutton=document.getElementById("check-btn")
@@ -72,9 +73,9 @@ function changeIfCheked(){
                 // Find the index of the value in the 'leads' array
                 let index = -1; // Initialize index as -1 (not found)
 
-                for (let i = 0; i < myLead.length; i++) {
+                for (let i = 0; i < title.length; i++) {
                   
-                    if (myLead[i].trim() === leadValue.trim()) {
+                    if (title[i].trim() === leadValue.trim()) {
                      index = i;
                     break; // Exit the loop if a match is found
                 }
@@ -82,9 +83,11 @@ function changeIfCheked(){
                 
                 // Remove the element from the 'leads' array
                 if (index !== -1) {
+                    title.splice(index,1);
                     myLead.splice(index, 1);
                 }
-                render(myLead)
+                render(myLead,title)
+                localStorage.setItem("titles",JSON.stringify(title));
                 localStorage.setItem("myLeads",JSON.stringify(myLead));
                
                 //render(myLead)
@@ -93,14 +96,14 @@ function changeIfCheked(){
         
     });
 }
-function render(leads){
+function render(leads,titles){
 let listItems=""
 for(let i=0;i<leads.length;i++)
 {
    listItems += 
     `<li> 
         <input type="checkbox" class="item-checkbox">
-        <a target='_blank' href='${leads[i]}'> ${leads[i]} 
+        <a target='_blank' href='${leads[i]}'> ${titles[i]} 
         </a>
     </li>`
 }
